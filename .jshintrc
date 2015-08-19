@@ -6,6 +6,7 @@
     "console": false,
     "http": true,
     "io": true,
-    "setInterval": false
+    "setInterval": false,
+    "process": false
   }
 }
