@@ -1,6 +1,8 @@
 'use strict';
 
 var express = require('express'),
+    router = express.Router(),
+    middleware = require('./config/middleware'),
     logger = require('morgan'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
@@ -8,18 +10,21 @@ var express = require('express'),
     http = require('http').Server(app),
     io = require('socket.io')(http);
 
-// running some basic Express middleware
+// run some basic Express middleware
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// middleware
-var middleware = require('./config/middleware');
+// run application-level middleware (before all routes)
 app.use(middleware.beforeAll);
 app.use(middleware.cors);
 
-// link to the routes file which links to all the individual routes
-require('./config/routes')(app);
+// link to routes file which has all routes, then link router to root app path '/'
+require('./config/routes')(router);
+app.use('/', router);
+
+// run application-level middleware (before all routes)
+// ... no 'after' middleware yet
 
 // connect to mongo
 mongoose.connect('mongodb://localhost/fitFriend');
