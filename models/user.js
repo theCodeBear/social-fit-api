@@ -1,6 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var jwt = require('jwt-simple');
+var moment = require('moment');
 var User;
 
 var userSchema = new mongoose.Schema({
@@ -48,7 +50,6 @@ userSchema.statics.authenticate = function(payload, cb) {
     if (!user) return cb('Email and Name have not been submitted yet');
     if (user.authCode && user.authCode === payload.code) {
       user.authCode = null;
-      console.log(user);
       user.save(function(err, user) {
         if (err) {
           console.log('err', err);
@@ -60,6 +61,14 @@ userSchema.statics.authenticate = function(payload, cb) {
       return cb('The code did not match the one sent to your email');
     }
   });
+};
+
+userSchema.methods.token = function() {
+  var payload = {
+    sub: this._id,
+    iat: moment().unix()
+  };
+  return jwt.encode(payload, process.env.TOKEN_SECRET);
 };
 
 userSchema.methods.sanitize = function() {
