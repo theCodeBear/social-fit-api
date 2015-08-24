@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "test",
-    "dev": "source .env && nodemon app.js"
+    "dev": "source .env && nodemon dist/app.js"
   },
   "author": "Todd Kronenberg <toddkronenberg@gmail.com>",
   "license": "ISC",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
     "gulp-jshint": "^1.11.2",
     "jshint-stylish": "^2.0.1"
   }

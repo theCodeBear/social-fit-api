@@ -16,7 +16,7 @@ module.exports = function(receiver, cb) {
         to: [{email: receiver.email, name: receiver.name}],
         from_email: 'toddkronenberg@gmail.com',
         subject: 'Fit Friend Login Code',
-        text: 'Hi ' + receiver.name + ', ready to get fit?! Enter this code into the Fit Friend app in order to login:\n\n' + code + '\n\nIf you did not just try to login to Fit Friend please ignore and delete this email.'
+        text: `Hi ${receiver.name}, ready to get fit?! Enter this code into the Fit Friend app in order to login:\n\n${code}\n\nIf you did not just try to login to Fit Friend please ignore and delete this email.`
       }
     },
     function(error, response) {
