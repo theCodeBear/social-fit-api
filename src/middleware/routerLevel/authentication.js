@@ -7,7 +7,7 @@ module.exports = function(req, res, next) {
   try {
     jwt.decode(token, process.env.TOKEN_SECRET);
   } catch(err) {
-    return res.status(500).send('You are not logged in');
+    return res.status(401).send('You are not logged in');
   }
   next();
 };

@@ -1,7 +1,6 @@
 'use strict';
 
 const mongoose = require('mongoose');
-// let WorkoutDate = {};
 
 const workoutDateSchema = new mongoose.Schema({
   datetime:   { type: Date, requied: true },

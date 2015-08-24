@@ -3,7 +3,6 @@
 const mongoose = require('mongoose'),
       jwt = require('jwt-simple'),
       moment = require('moment');
-// let User = {};
 
 const userSchema = new mongoose.Schema({
   email:          { type: String, required: true },
