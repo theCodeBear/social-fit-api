@@ -1,6 +1,6 @@
 'use strict';
 
-var mw = require('./middleware'),
+const mw = require('./middleware'),
     login = require('./../routes/user/login'),
     authenticate = require('./../routes/user/authenticate');
 

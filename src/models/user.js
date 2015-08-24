@@ -1,11 +1,11 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var jwt = require('jwt-simple');
-var moment = require('moment');
-var User;
+const mongoose = require('mongoose'),
+      jwt = require('jwt-simple'),
+      moment = require('moment');
+// let User = {};
 
-var userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   email:          { type: String, required: true },
   authCode:       { type: String },   // null value if not currently trying to be verified
   name:           { type: String, required: true },
@@ -64,7 +64,7 @@ userSchema.statics.authenticate = function(payload, cb) {
 };
 
 userSchema.methods.token = function() {
-  var payload = {
+  let payload = {
     sub: this._id,
     iat: moment().unix()
   };
@@ -72,11 +72,11 @@ userSchema.methods.token = function() {
 };
 
 userSchema.methods.sanitize = function() {
-  var userObject = this.toObject();
+  let userObject = this.toObject();
   delete userObject.authCode;
   delete userObject.createdAt;
   return userObject;
 };
 
-User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 module.exports = User;

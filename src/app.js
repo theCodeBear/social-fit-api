@@ -1,6 +1,6 @@
 'use strict';
 
-var express = require('express'),
+const express = require('express'),
     router = express.Router(),
     middleware = require('./config/middleware'),
     logger = require('morgan'),
@@ -31,7 +31,7 @@ mongoose.connect('mongodb://localhost/fitFriend');
 
 // run Express web server
 http.listen(3000, function() {
-  var port = http.address().port;
+  const port = http.address().port;
   console.log('serving on port %s', port);
 });
 

@@ -1,6 +1,6 @@
 'use strict';
 
-var emailAuth = require('./../email/auth');
+const emailAuth = require('./../email/auth');
 
 module.exports = function(req, res) {
   emailAuth(req.body, function(err) {

@@ -1,9 +1,9 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var WorkoutDate;
+const mongoose = require('mongoose');
+// let WorkoutDate = {};
 
-var workoutDateSchema = new mongoose.Schema({
+const workoutDateSchema = new mongoose.Schema({
   datetime:   { type: Date, requied: true },
   title:      String,
   friend:     { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
@@ -13,5 +13,5 @@ var workoutDateSchema = new mongoose.Schema({
 
 
 
-WorkoutDate = mongoose.model('WorkoutDate', workoutDateSchema);
+const WorkoutDate = mongoose.model('WorkoutDate', workoutDateSchema);
 module.exports = WorkoutDate;
