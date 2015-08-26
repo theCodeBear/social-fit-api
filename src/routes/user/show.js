@@ -9,7 +9,7 @@ module.exports = (req, res) => {
   .exec((err, user) => {
     if (err || !user) return res.status(500).send('Error getting user');
     user = user.sanitize();
-    // deserialize the user's workout's exercises
+    // deserialize the user's workouts' exercises
     user.workouts.forEach((workout) => {
       workout.exercises = workout.exercises.map((exercise) => {
         return JSON.parse(exercise);

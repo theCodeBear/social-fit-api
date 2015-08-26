@@ -73,7 +73,6 @@ userSchema.methods.token = function() {
 userSchema.methods.sanitize = function() {
   let userObject = this.toObject();
   delete userObject.authCode;
-  delete userObject.createdAt;
   return userObject;
 };
 
