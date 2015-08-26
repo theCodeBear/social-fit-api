@@ -6,6 +6,7 @@ module.exports = function(router) {
 // users
   router.post('/users/login', require('./../routes/user/login'));
   router.post('/users/authenticate', require('./../routes/user/authenticate'));
+  router.get('/users/:userId', require('./../routes/user/show'));
 // workouts
   router.get('/workouts', 
               mw.authentication,
