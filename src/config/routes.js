@@ -16,7 +16,8 @@ module.exports = function(router) {
   router.post('/workouts',
                mw.authentication,
                mw.identify,
-               require('./../routes/workout/create'));
+               require('./../routes/workout/create'),
+               require('./../routes/user/show'));
 
   router.get('/workouts/:workoutId',
               require('./../routes/workout/show'));

@@ -2,12 +2,11 @@
 
 const Workout = require('./../../models/workout');
 
-module.exports = (req, res) => {
-  console.log('in the workout create route', req.body);
+module.exports = (req, res, next) => {
   Workout.create(req.body, req.query.user, (err, user) => {
-    console.log('returned from workout create');
     if (err) return res.status(500).send(err);
-    user = user.sanitize();
-    res.status(200).send({user: user});
+    // setup params for user/show
+    req.params.userId = req.query.user;
+    next();
   });
 };
