@@ -77,5 +77,15 @@ userSchema.methods.sanitize = function() {
   return userObject;
 };
 
+userSchema.statics.addWorkout = (userId, workoutId, cb) => {
+  User.findById(userId, (err, user) => {
+    if (err || !user) return cb('Error finding user');
+    console.log(user.workouts);
+    user.workouts.push(workoutId);
+    console.log(user.workouts);
+    cb(null);
+  });
+};
+
 const User = mongoose.model('User', userSchema);
 module.exports = User;

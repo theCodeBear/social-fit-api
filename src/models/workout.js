@@ -7,11 +7,29 @@ const workoutSchema = new mongoose.Schema({
   title:      { type: String, required: true },
   type:       { type: String },
   datesDone:  [{ type: Date }],
-  exercises:  [{ type: String }],       // exercises and amount are parallel arrays
-  amount:     [{ type: Number }],
+  exercises:  [{ type: String }],       // serialized objects of each exercise
+  // exercises:  [{ type: mongoose.Schema.ObjectId, ref: 'Exercise' }],
   createdAt:  { type: Date, default: Date.now, required: true }
 });
 
+
+workoutSchema.statics.create = (workout, userId, cb) => {
+  workout.exercises = workout.exercises.map((exercise) => {
+    return JSON.stringify(exercise);
+  });
+  let newWorkout = new Workout(workout);
+  newWorkout.save((err) => {
+    if (err) return cb('Failed to save workout');
+    User.findById(userId, (err, user) => {
+      if (err) return cb('Error finding user');
+      user.workouts.push(newWorkout._id);
+      user.save((err, user) => {
+        if (err || !user) return cb('Error saving new workout to user');
+        cb(null, user);
+      });
+    });
+  });
+};
 
 workoutSchema.statics.destroy = (workoutId, cb) => {
   Workout.findByIdAndRemove(workoutId, (err, workout) => {
@@ -20,6 +38,7 @@ workoutSchema.statics.destroy = (workoutId, cb) => {
   });
 };
 
+// deletes a workout from a user's workouts field
 workoutSchema.statics.deleteFromUser = (workoutId, userId, cb) => {
   User.findById(userId, (err, user) => {
     if (err || !user) return cb('Error finding user');
