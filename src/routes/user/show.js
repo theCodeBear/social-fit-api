@@ -11,8 +11,8 @@ module.exports = (req, res) => {
     console.log('popped user', user);
     user = user.sanitize();
     // deserialize the user's workout's exercises
-    user.workouts = user.workouts.map((workout) => {
-      return workout.exercises.map((exercise) => {
+    user.workouts.forEach((workout) => {
+      workout.exercises = workout.exercises.map((exercise) => {
         return JSON.parse(exercise);
       });
     });
